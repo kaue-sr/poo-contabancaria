@@ -1,16 +1,13 @@
 package br.com.contabancaria.model;
 
 public class ContaBancaria {
-    public String titular;
-    public String numeroConta;
-    public double saldo;
-    public double limiteChequeEspecial;
+    private String titular;
+    private String numeroConta;
+    private double saldo;
+    private double limiteChequeEspecial;
 
-    public ContaBancaria(String titular, String numeroConta, double limiteChequeEspecial) {
-        this.titular = titular;
-        this.numeroConta = numeroConta;
-        this.limiteChequeEspecial = limiteChequeEspecial;
-        this.saldo = 0.0;
+    public ContaBancaria(String numeroConta) {
+        this.setNumeroConta(numeroConta);
     }
 
     public void depositar(double valor) {
@@ -37,5 +34,30 @@ public class ContaBancaria {
 
         this.saldo -= valor;
         System.out.println("Saque realizado com sucesso, seu saldo atual é de: " + this.saldo);
+    }
+
+    public String getTitular() {
+        return this.titular;
+    }
+    
+    public String getNumeroConta(){
+        return this.numeroConta;
+    }
+
+    public double getLimiteCheque() {
+        return this.limiteChequeEspecial;
+    }
+
+    public double getSaldo() {
+        return this.saldo;
+    }
+    
+    private void setNumeroConta(String numeroConta) {
+        if (numeroConta.length() >= 1 && numeroConta.length() <= 5) {
+            this.numeroConta = numeroConta;
+            System.out.println(numeroConta);
+        } else {
+            System.out.println("Número da conta inválido!");
+        }
     }
 }
