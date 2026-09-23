@@ -1,12 +1,12 @@
 package br.com.contabancaria.model;
 
 public class ContaBancaria {
-    private String titular;
+    private Cliente titular;
     private String numeroConta;
     private double saldo;
     private double limiteChequeEspecial;
 
-    public ContaBancaria(String titular, String numeroConta) {
+    public ContaBancaria(Cliente titular, String numeroConta) {
         this.setTitular(titular);
         this.setNumeroConta(numeroConta);
     }
@@ -27,7 +27,6 @@ public class ContaBancaria {
             return;
         }
 
-        // Permite sacar até o valor total (Saldo + Cheque Especial)
         if (valor > (this.saldo + this.limiteChequeEspecial)) {
             System.out.println("O valor é maior que o saldo disponível");
             return;
@@ -37,7 +36,16 @@ public class ContaBancaria {
         System.out.println("Saque realizado com sucesso, seu saldo atual é de: " + this.saldo);
     }
 
-    public String getTitular() {
+    public void exibirResumo() {
+        System.out.println("\n--- RESUMO DA CONTA ---");
+        System.out.println("Número da Conta: " + this.numeroConta);
+        System.out.println("Titular: " + this.titular.getNome());
+        System.out.println("CPF do Titular: " + this.titular.getCpf());
+        System.out.println("Saldo Atual: R$ " + this.saldo);
+        System.out.println("-----------------------\n");
+    }
+
+    public Cliente getTitular() {
         return this.titular;
     }
 
@@ -53,7 +61,7 @@ public class ContaBancaria {
         return this.saldo;
     }
 
-    private void setTitular(String titular) {
+    private void setTitular(Cliente titular) {
         this.titular = titular;
     }
 
@@ -65,7 +73,3 @@ public class ContaBancaria {
         }
     }
 }
-
-// Criar Getters e Setters automáticos para todos os atributos sem nenhum critério é um problema, porque a IDE não conhece as regras do mundo real.
-// Isso compromote o sistema de duas formas, fazendo com que atributos fundamentais do código sejam definidos logo no início do objeto e não sejam mais modificados.
-//E a violação do Encapsulamento, que faz com que o saldo da conta não seja editado, sendo modificado apenas com operações do próprio sistema, se o saldo fosse publico poderiamos injetar qualquer valor no saldo sem passar por nenhuma validação. Eliminando esse setter, deixamos com que esse objeto só possa ser modificado a partir dos métodos "depositar" e "sacar".
