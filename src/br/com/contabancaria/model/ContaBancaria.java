@@ -6,7 +6,8 @@ public class ContaBancaria {
     private double saldo;
     private double limiteChequeEspecial;
 
-    public ContaBancaria(String numeroConta) {
+    public ContaBancaria(String titular, String numeroConta) {
+        this.setTitular(titular);
         this.setNumeroConta(numeroConta);
     }
 
@@ -39,8 +40,8 @@ public class ContaBancaria {
     public String getTitular() {
         return this.titular;
     }
-    
-    public String getNumeroConta(){
+
+    public String getNumeroConta() {
         return this.numeroConta;
     }
 
@@ -51,13 +52,20 @@ public class ContaBancaria {
     public double getSaldo() {
         return this.saldo;
     }
-    
+
+    private void setTitular(String titular) {
+        this.titular = titular;
+    }
+
     private void setNumeroConta(String numeroConta) {
         if (numeroConta.length() >= 1 && numeroConta.length() <= 5) {
             this.numeroConta = numeroConta;
-            System.out.println(numeroConta);
         } else {
             System.out.println("Número da conta inválido!");
         }
     }
 }
+
+// Criar Getters e Setters automáticos para todos os atributos sem nenhum critério é um problema, porque a IDE não conhece as regras do mundo real.
+// Isso compromote o sistema de duas formas, fazendo com que atributos fundamentais do código sejam definidos logo no início do objeto e não sejam mais modificados.
+//E a violação do Encapsulamento, que faz com que o saldo da conta não seja editado, sendo modificado apenas com operações do próprio sistema, se o saldo fosse publico poderiamos injetar qualquer valor no saldo sem passar por nenhuma validação. Eliminando esse setter, deixamos com que esse objeto só possa ser modificado a partir dos métodos "depositar" e "sacar".
